@@ -73,6 +73,22 @@ AUC_zeros <- function(dat,
     base::stop("groupings must be a character or vector of characters for column names")
   }  } # Checks
 
+  orig_group <- TRUE
+  
+  #Clear no visibile binding note
+  orig_order <- fake_grouping <- NULL
+  
+  #Handling no grouping factor
+  if(is.null(groupings)){
+    
+    dat <- dat %>%
+      dplyr::mutate(fake_grouping = 1)
+  
+  orig_group = FALSE
+  
+  groupings = "fake_grouping"
+      
+  }
 
   # Add original row numbers and identify experimental data
   dat <- dat %>%
@@ -99,9 +115,10 @@ AUC_zeros <- function(dat,
     dplyr::select(dplyr::all_of((groupings))) %>% # select only the grouping values
     dplyr::mutate({{ x_axis }} := base::ifelse(prob_disc, 1, 0), # Set x_axis
       {{ indiff }} := amount, # Set indifference point to Amount
-      orig = FALSE
-    ) %>% # Set flag that the data was imputed so that users
-    # are not confused by the imputed data
+      orig = FALSE # Set flag that the data was imputed so that users
+                   # are not confused by the imputed data
+    ) %>% 
+    
     dplyr::bind_rows(dat) %>% # Add zero data back into original file
     dplyr::group_by_at(dplyr::vars(dplyr::one_of(groupings)))
 
@@ -117,12 +134,21 @@ AUC_zeros <- function(dat,
   # Create fake original row number for imputed zeros
   out <- out %>%
     dplyr::mutate(orig_order = base::ifelse(is.na(.data$orig_order),
-      dplyr::lead(.data$orig_order) - .5,
+      dplyr::lead(orig_order) - .5,
       .data$orig_order
     )) %>%
-    dplyr::arrange(.data$orig_order) %>%
-    dplyr::select(-.data$orig_order) %>%
+    dplyr::arrange(orig_order) %>%
+    dplyr::select(-orig_order) %>%
     dplyr::ungroup()
+  
+  #delete fake grouping if it exists
+  if(!orig_group){
+    
+    out<- 
+      out %>%
+      dplyr::select(-fake_grouping)
+    
+  }
 
   base::return(out)
 }
