@@ -13,7 +13,7 @@ Description: Area under the curve (AUC; Myerson et al., 2001) <doi:10.1901/jeab.
   The package can calculate all three versions of AUC [and includes a new version: IHS(AUC)],
   impute indifference points when x = 0, calculate ordinal AUC in the case of Halton
   sampling of x-values, and account for probability discounting AUC.
-Version: 1.0.3
+Version: 1.1.0
 Authors@R: person(given = "Jonathan E.",
   family = "Friedel",
   email = "jfriedel@georgiasouthern.edu",
@@ -22,7 +22,7 @@ Authors@R: person(given = "Jonathan E.",
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Suggests: knitr, rmarkdown, testthat
 Imports: dplyr, tibble, rlang, glue
 Depends: R (>= 4.2)
@@ -30,9 +30,9 @@ VignetteBuilder: knitr
 URL: https://github.com/jefriedel/discAUC
 BugReports: https://github.com/jefriedel/discAUC/issues
 NeedsCompilation: no
-Packaged: 2024-10-10 18:10:30 UTC; jfriedel
-Author: Jonathan E. Friedel [aut, cre]
-    (<https://orcid.org/0000-0002-1516-330X>)
+Packaged: 2026-02-23 16:58:08 UTC; jfriedel
+Author: Jonathan E. Friedel [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-1516-330X>)
 Maintainer: Jonathan E. Friedel <jfriedel@georgiasouthern.edu>
 Repository: CRAN
-Date/Publication: 2024-10-10 18:20:02 UTC
+Date/Publication: 2026-02-23 20:00:03 UTC
